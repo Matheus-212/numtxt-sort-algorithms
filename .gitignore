@@ -1,0 +1,9 @@
+# não enviar os arquivos de compilação
+*.exe
+*.o
+
+# não tem necessidade de subir o txt de entrada no git
+*.txt
+
+# ambiente apenas de testes
+/ambiente_testes
