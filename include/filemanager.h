@@ -7,7 +7,7 @@ typedef struct
     int *array;
 } arraybase;
 
-void input(const char *file);
+arraybase input(const char *file);
 void output(const char *file, arraybase arr);
 
 #endif

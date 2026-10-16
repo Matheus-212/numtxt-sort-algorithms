@@ -1,5 +1,6 @@
 #include "filemanager.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 arraybase input(const char *file)
 {
@@ -40,9 +41,7 @@ void output(const char *file, arraybase arr)
     FILE *fp = fopen(file, "w");
     if (fp == NULL)
     {
-        abrir_erro();
         printf("erro: falha ao criar/abrir o arquivo especificado\n");
-        fechar_erro();
     }
     for (int i = 0; i <= arr.size - 1; i++)
     {
