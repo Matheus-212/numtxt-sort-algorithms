@@ -1,11 +1,7 @@
-#ifndef filemanager_H
-#define filemanager_H
+#ifndef FILEMANAGER_H
+#define FILEMANAGER_H
 
-typedef struct
-{
-    int size;
-    int *array;
-} arraybase;
+#include "type.h"
 
 arraybase input(const char *file);
 void output(const char *file, arraybase arr);

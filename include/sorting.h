@@ -1,10 +1,12 @@
 #ifndef SORTING_H
 #define SORTING_H
 
-void bubble(int arr[], int n);
-void insertion(int arr[], int n);
-void selection(int arr[], int n);
-void merge(int arr[], int n);
-void quick(int arr[], int n);
+#include "type.h"
+
+void bubble(arraybase arr);
+void insertion(arraybase arr);
+void selection(arraybase arr);
+void merge(arraybase arr);
+void quick(arraybase arr);
 
 #endif

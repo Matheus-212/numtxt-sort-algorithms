@@ -1,16 +1,16 @@
 #include "sorting.h"
- 
-void bubble(int arr[], int n)
+
+void bubble(arraybase arr)
 {}
 
-void insertion(int arr[], int n)
+void insertion(arraybase arr)
 {}
 
-void selection(int arr[], int n)
+void selection(arraybase arr)
 {}
 
-void merge(int arr[], int n)
+void merge(arraybase arr)
 {}
 
-void quick(int arr[], int n)
+void quick(arraybase arr)
 {}
