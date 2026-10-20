@@ -50,5 +50,28 @@ void selection(arraybase z)
 void merge(arraybase z)
 {}
 
-void quick(arraybase z)
-{}
+void quick(arraybase z, int start, int end)
+{
+    if (start >= end)
+    {
+        return;
+    }
+    int pivot = z.array[end], aux;
+    int j = start, i;
+    for (i = start; i <= end - 1; i++)
+    {
+        if (z.array[i] <= pivot)
+        {
+            aux = z.array[j];
+            z.array[j] = z.array[i];
+            z.array[i] = aux;
+            j++;
+        }
+    }
+    aux = z.array[j];
+    z.array[j] = z.array[i];
+    z.array[i] = aux;
+
+    quick(z, start, j - 1);
+    quick(z, j + 1, end);
+}

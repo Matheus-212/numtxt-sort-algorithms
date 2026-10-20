@@ -10,14 +10,14 @@ arraybase input(const char *file)
     p.array = NULL;
     if (fp == NULL)
     {
-        printf("ERRO! arquivo não encontrado\n");
+        printf("ERRO! %s nao encontrado\n", file);
         return p;
     }
     int n, i = 0, base = 10;
     p.array = (int *)malloc(base * sizeof(int));
     if (p.array == NULL)
     {
-        printf("Erro de alocação de memória!\n");
+        printf("Erro de alocacao de memoria!\n");
         fclose(fp);
         return p;
     }
@@ -30,6 +30,9 @@ arraybase input(const char *file)
         }
         p.array[i] = n;
         i++;
+    }
+    if(i == 0){
+        printf("ERRO! numeros nao encontrados em %s.\n",file);
     }
     p.size = i;
     fclose(fp);
