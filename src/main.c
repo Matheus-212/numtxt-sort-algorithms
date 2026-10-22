@@ -20,13 +20,14 @@ int main()
         printf("dados de entrada: ");
         printArrey(arr);
         int res = -1;
-        while (res < 0 || res > 4)
+        while (res < 0 || res > 5)
         {
             printf("\nSelecione o algoritmo de ordenacao: \n");
             printf("[1] bubble\n");
             printf("[2] insertion\n");
             printf("[3] selection\n");
             printf("[4] quick\n");
+            printf("[5] merge\n");
             printf("[0] cancelar\n");
             scanf("%d", &res);
             switch (res)
@@ -42,6 +43,9 @@ int main()
                 break;
             case 4:
                 quick(arr, 0, arr.size);
+                break;
+            case 5:
+                merge(&arr);
                 break;
             case 0:
                 system("pause");
