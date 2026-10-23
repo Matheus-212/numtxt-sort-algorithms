@@ -2,6 +2,14 @@
 #include "filemanager.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
+void clear_buffer(int c)
+{
+    while ((c = getchar()) != '\n' && c != EOF)
+    {
+    }
+}
 
 void print_arrey(intArray z)
 {
@@ -9,10 +17,6 @@ void print_arrey(intArray z)
     {
         printf("%d ", z.array[i]);
     }
-}
-
-void clear_buffer(int c) {
-    while ((c = getchar()) != '\n' && c != EOF) {}
 }
 
 int main()
@@ -33,8 +37,8 @@ int main()
             printf("[3] selection\n");
             printf("[4] quick\n");
             printf("[5] merge\n");
-            printf("[0] cancelar\n");
-            printf("-> ");
+            printf("[0] cancelar");
+            printf("\n-> ");
             scanf("%d", &res);
             switch (res)
             {
@@ -48,7 +52,7 @@ int main()
                 selection_sort(&arr);
                 break;
             case 4:
-                quick_sort(&arr, 0, arr.size-1);
+                quick_sort(&arr, 0, arr.size - 1);
                 break;
             case 5:
                 merge_sort(&arr);
@@ -64,8 +68,7 @@ int main()
         }
         printf("dados de saida: ");
         print_arrey(arr);
-        printf("\n");
-        create_file("ordenados.txt", arr);
+        ger("ordenados", arr);
     }
     else
     {

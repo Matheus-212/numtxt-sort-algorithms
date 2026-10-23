@@ -3,7 +3,8 @@
 
 #include "type.h"
 
+void clear_buffer(int c);
 intArray read_file(const char *file);
-void create_file(const char *file, intArray arr);
+void ger(const char *name, intArray array);
 
 #endif
