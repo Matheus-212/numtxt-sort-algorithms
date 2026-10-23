@@ -10,14 +10,14 @@ arraybase input(const char *file)
     p.array = NULL;
     if (fp == NULL)
     {
-        printf("ERRO! %s nao encontrado\n", file);
+        printf("Erro: %s nao encontrado\n", file);
         return p;
     }
     int n, i = 0, base = 10;
     p.array = (int *)malloc(base * sizeof(int));
     if (p.array == NULL)
     {
-        printf("Erro de alocacao de memoria!\n");
+        printf("Erro: falha na alocacao de memoria!\n");
         fclose(fp);
         return p;
     }
@@ -32,7 +32,7 @@ arraybase input(const char *file)
         i++;
     }
     if(i == 0){
-        printf("ERRO! numeros nao encontrados em %s.\n",file);
+        printf("Erro: numeros nao encontrados em %s.\n",file);
     }
     p.size = i;
     fclose(fp);
@@ -44,7 +44,7 @@ void output(const char *file, arraybase arr)
     FILE *fp = fopen(file, "w");
     if (fp == NULL)
     {
-        printf("erro: falha ao criar/abrir o arquivo especificado\n");
+        printf("Erro: falha ao criar/abrir o arquivo especificado\n");
     }
     for (int i = 0; i <= arr.size - 1; i++)
     {

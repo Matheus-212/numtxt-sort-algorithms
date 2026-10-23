@@ -11,6 +11,10 @@ void printArrey(arraybase z)
     }
 }
 
+void clearBuffer(int c) {
+    while ((c = getchar()) != '\n' && c != EOF) {}
+}
+
 int main()
 {
     char *filename = "dados.txt";
@@ -19,6 +23,7 @@ int main()
     {
         printf("dados de entrada: ");
         printArrey(arr);
+        printf("\n");
         int res = -1;
         while (res < 0 || res > 5)
         {
@@ -29,20 +34,21 @@ int main()
             printf("[4] quick\n");
             printf("[5] merge\n");
             printf("[0] cancelar\n");
+            printf("-> ");
             scanf("%d", &res);
             switch (res)
             {
             case 1:
-                bubble(arr);
+                bubble(&arr);
                 break;
             case 2:
-                insertion(arr);
+                insertion(&arr);
                 break;
             case 3:
-                selection(arr);
+                selection(&arr);
                 break;
             case 4:
-                quick(arr, 0, arr.size);
+                quick(&arr, 0, arr.size-1);
                 break;
             case 5:
                 merge(&arr);
@@ -51,9 +57,10 @@ int main()
                 system("pause");
                 return 0;
             default:
-                printf("Opcao invalida.\n");
+                printf("\nOpcao invalida.\n");
                 break;
             }
+            clearBuffer(res);
         }
         printf("dados de saida: ");
         printArrey(arr);
