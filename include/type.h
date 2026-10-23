@@ -5,6 +5,6 @@ typedef struct
 {
     int size;
     int *array;
-} arraybase;
+} intArray;
 
 #endif

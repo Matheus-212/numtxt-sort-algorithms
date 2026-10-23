@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void printArrey(arraybase z)
+void print_arrey(intArray z)
 {
     for (int i = 0; i <= z.size - 1; i++)
     {
@@ -11,18 +11,18 @@ void printArrey(arraybase z)
     }
 }
 
-void clearBuffer(int c) {
+void clear_buffer(int c) {
     while ((c = getchar()) != '\n' && c != EOF) {}
 }
 
 int main()
 {
     char *filename = "dados.txt";
-    arraybase arr = input(filename);
+    intArray arr = read_file(filename);
     if (arr.size != 0)
     {
         printf("dados de entrada: ");
-        printArrey(arr);
+        print_arrey(arr);
         printf("\n");
         int res = -1;
         while (res < 0 || res > 5)
@@ -39,19 +39,19 @@ int main()
             switch (res)
             {
             case 1:
-                bubble(&arr);
+                bubble_sort(&arr);
                 break;
             case 2:
-                insertion(&arr);
+                insertion_sort(&arr);
                 break;
             case 3:
-                selection(&arr);
+                selection_sort(&arr);
                 break;
             case 4:
-                quick(&arr, 0, arr.size-1);
+                quick_sort(&arr, 0, arr.size-1);
                 break;
             case 5:
-                merge(&arr);
+                merge_sort(&arr);
                 break;
             case 0:
                 system("pause");
@@ -60,12 +60,12 @@ int main()
                 printf("\nOpcao invalida.\n");
                 break;
             }
-            clearBuffer(res);
+            clear_buffer(res);
         }
         printf("dados de saida: ");
-        printArrey(arr);
+        print_arrey(arr);
         printf("\n");
-        output("ordenados.txt", arr);
+        create_file("ordenados.txt", arr);
     }
     else
     {
@@ -73,5 +73,6 @@ int main()
         return 1;
     }
     system("pause");
+    free(arr.array);
     return 0;
 }

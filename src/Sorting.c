@@ -2,146 +2,146 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void bubble(arraybase *z)
+void bubble_sort(intArray *array)
 {
     int aux;
-    for (int i = 0; i < z->size; i++)
+    for (int i = 0; i < array->size; i++)
     {
-        for (int j = 0; j < z->size - 1; j++)
+        for (int j = 0; j < array->size - 1; j++)
         {
-            if (z->array[j] > z->array[j + 1])
+            if (array->array[j] > array->array[j + 1])
             {
-                aux = z->array[j];
-                z->array[j] = z->array[j + 1];
-                z->array[j + 1] = aux;
+                aux = array->array[j];
+                array->array[j] = array->array[j + 1];
+                array->array[j + 1] = aux;
             }
         }
     }
 }
 
-void insertion(arraybase *z)
+void insertion_sort(intArray *array)
 {
-    for (int i = 1; i < z->size; i++)
+    for (int i = 1; i < array->size; i++)
     {
-        int j = i - 1, key = z->array[i];
-        while (j >= 0 && z->array[j] > key)
+        int j = i - 1, key = array->array[i];
+        while (j >= 0 && array->array[j] > key)
         {
-            z->array[j + 1] = z->array[j];
+            array->array[j + 1] = array->array[j];
             j--;
         }
-        z->array[j + 1] = key;
+        array->array[j + 1] = key;
     }
 }
 
-void selection(arraybase *z)
+void selection_sort(intArray *array)
 {
     int aux, p;
-    for (int i = 0; i < z->size; i++)
+    for (int i = 0; i < array->size; i++)
     {
         p = i;
-        for (int j = i + 1; j < z->size; j++)
+        for (int j = i + 1; j < array->size; j++)
         {
-            if (z->array[p] > z->array[j])
+            if (array->array[p] > array->array[j])
             {
                 p = j;
             }
         }
-        aux = z->array[i];
-        z->array[i] = z->array[p];
-        z->array[p] = aux;
+        aux = array->array[i];
+        array->array[i] = array->array[p];
+        array->array[p] = aux;
     }
 }
 
-void quick(arraybase *z, int start, int end)
+void quick_sort(intArray *array, int start, int end)
 {
     if (start >= end)
     {
         return;
     }
-    int pivot = z->array[end], aux;
+    int pivot = array->array[end], aux;
     int j = start, i;
     for (i = start; i <= end - 1; i++)
     {
-        if (z->array[i] <= pivot)
+        if (array->array[i] <= pivot)
         {
-            aux = z->array[j];
-            z->array[j] = z->array[i];
-            z->array[i] = aux;
+            aux = array->array[j];
+            array->array[j] = array->array[i];
+            array->array[i] = aux;
             j++;
         }
     }
-    aux = z->array[j];
-    z->array[j] = z->array[i];
-    z->array[i] = aux;
+    aux = array->array[j];
+    array->array[j] = array->array[i];
+    array->array[i] = aux;
 
-    quick(z, start, j - 1);
-    quick(z, j + 1, end);
+    quick_sort(array, start, j - 1);
+    quick_sort(array, j + 1, end);
 }
 
-void merge(arraybase *z)
+void merge_sort(intArray *array)
 {
-    if (z->size <= 1)
+    if (array->size <= 1)
         return;
 
-    int mid = z->size / 2;
+    int mid = array->size / 2;
 
-    arraybase x;
-    arraybase y;
-    x.size = mid;
-    y.size = z->size - mid;
+    intArray left;
+    intArray right;
+    left.size = mid;
+    right.size = array->size - mid;
 
-    x.array = (int *)malloc(x.size * sizeof(int));
-    y.array = (int *)malloc(y.size * sizeof(int));
+    left.array = (int *)malloc(left.size * sizeof(int));
+    right.array = (int *)malloc(right.size * sizeof(int));
 
-    if (x.array == NULL || y.array == NULL)
+    if (left.array == NULL || right.array == NULL)
     {
         return;
     }
 
-    for (int i = 0; i < z->size; i++)
+    for (int i = 0; i < array->size; i++)
     {
         if (i < mid)
         {
-            x.array[i] = z->array[i];
+            left.array[i] = array->array[i];
         }
         else
         {
-            y.array[i - mid] = z->array[i];
+            right.array[i - mid] = array->array[i];
         }
     }
 
-    merge(&x);
-    merge(&y);
+    merge_sort(&left);
+    merge_sort(&right);
 
     int i = 0, j = 0, k = 0;
-    while (i < x.size && j < y.size)
+    while (i < left.size && j < right.size)
     {
-        if (x.array[i] <= y.array[j])
+        if (left.array[i] <= right.array[j])
         {
-            z->array[k] = x.array[i];
+            array->array[k] = left.array[i];
             i++;
         }
         else
         {
-            z->array[k] = y.array[j];
+            array->array[k] = right.array[j];
             j++;
         }
         k++;
     }
 
-    while (i < x.size)
+    while (i < left.size)
     {
-        z->array[k] = x.array[i];
+        array->array[k] = left.array[i];
         i++;
         k++;
     }
-    while (j < y.size)
+    while (j < right.size)
     {
-        z->array[k] = y.array[j];
+        array->array[k] = right.array[j];
         j++;
         k++;
     }
 
-    free(x.array);
-    free(y.array);
+    free(left.array);
+    free(right.array);
 }

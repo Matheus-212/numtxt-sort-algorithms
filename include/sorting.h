@@ -3,10 +3,10 @@
 
 #include "type.h"
 
-void bubble(arraybase *z);
-void insertion(arraybase *z);
-void selection(arraybase *z);
-void quick(arraybase *z, int start, int end);
-void merge(arraybase *arr);
+void bubble_sort(intArray  *array);
+void insertion_sort(intArray  *array);
+void selection_sort(intArray  *array);
+void quick_sort(intArray  *array, int start, int end);
+void merge_sort(intArray  *array);
 
 #endif

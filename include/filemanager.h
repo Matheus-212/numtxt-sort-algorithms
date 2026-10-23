@@ -3,7 +3,7 @@
 
 #include "type.h"
 
-arraybase input(const char *file);
-void output(const char *file, arraybase arr);
+intArray read_file(const char *file);
+void create_file(const char *file, intArray arr);
 
 #endif

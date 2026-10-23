@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-arraybase input(const char *file)
+intArray read_file(const char *file)
 {
     FILE *fp = fopen(file, "r");
-    arraybase p;
+    intArray p;
     p.size = 0;
     p.array = NULL;
     if (fp == NULL)
@@ -39,7 +39,7 @@ arraybase input(const char *file)
     return p;
 }
 
-void output(const char *file, arraybase arr)
+void create_file(const char *file, intArray arr)
 {
     FILE *fp = fopen(file, "w");
     if (fp == NULL)
