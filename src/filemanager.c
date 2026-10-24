@@ -14,14 +14,23 @@ intArray read_file(const char *file)
     intArray p;
     p.size = 0;
     p.array = NULL;
+
     if (fp == NULL)
     {
-        char erro[30] = {"nao encontrado \0"};
-        strcat(erro, file);
-        print_erro(erro);
+        char *erro = (char *)malloc(strlen("nao encontrado ") + strlen(file) + 1);
+        if (erro != NULL) {
+            strcpy(erro, "nao encontrado ");
+            strcat(erro, file);
+            print_erro(erro);
+            free(erro);
+        } else {
+            print_erro("nao encontrado (erro ao alocar mensagem)");
+        }
         return p;
     }
-    int n, i = 0, base = 10;
+
+    // Alocação inicial do array dinâmico
+    int i = 0, base = 2;
     p.array = (int *)malloc(base * sizeof(int));
     if (p.array == NULL)
     {
@@ -29,22 +38,62 @@ intArray read_file(const char *file)
         fclose(fp);
         return p;
     }
-    while (fscanf(fp, "%d", &n) == 1)
+
+    // Buffer para ler o conteúdo do arquivo
+    // Usamos uma estratégia de ler o arquivo em blocos ou linha por linha
+    char linha[1024];
+
+    while (fgets(linha, sizeof(linha), fp) != NULL)
     {
-        if (i >= base)
+        char *ptr = linha;
+        char *endptr;
+
+        while (*ptr != '\0')
         {
-            base *= 2;
-            p.array = (int *)realloc(p.array, base * sizeof(int));
+            // strtol converte o número e move endptr para o primeiro caractere após o número
+            long n = strtol(ptr, &endptr, 10);
+
+            // Se ptr e endptr forem iguais, significa que nenhum número foi lido nesta posição
+            if (ptr == endptr) {
+                // Avança um caractere (pode ser uma vírgula, espaço, letra, etc.) e tenta de novo
+                ptr++;
+                continue;
+            }
+
+            // Se chegamos aqui, um número válido foi extraído
+            if (i >= base)
+            {
+                base *= 2;
+                int *temp = (int *)realloc(p.array, base * sizeof(int));
+                if (temp == NULL) {
+                    print_erro("Falha na realocacao de memoria!");
+                    free(p.array);
+                    p.array = NULL;
+                    p.size = 0;
+                    fclose(fp);
+                    return p;
+                }
+                p.array = temp;
+            }
+
+            p.array[i] = (int)n;
+            i++;
+
+            // Avança o ponteiro de leitura para onde o strtol parou
+            ptr = endptr;
         }
-        p.array[i] = n;
-        i++;
     }
+
+    // Se nenhum número foi encontrado no arquivo inteiro
     if (i == 0)
     {
-        char erro[30] = {"Numeros nao encontrados em \0"};
-        strcat(erro, file);
+        char erro[512];
+        snprintf(erro, sizeof(erro), "Numeros nao encontrados em %s", file);
         print_erro(erro);
+        free(p.array);
+        p.array = NULL;
     }
+
     p.size = i;
     fclose(fp);
     return p;
@@ -71,24 +120,21 @@ int check_existence(const char *name)
     char file[40];
     snprintf(file, sizeof(file), "%s.txt", name);
     FILE *fp = fopen(file, "r");
-    printf("\n%s ", file);
     if (fp == NULL)
     {
-        printf(" 0\n");
         return 0; // doesn't exist
     }
     else
     {
-        printf(" 1\n");
         return 1; // exist
     }
 }
-void ger(const char *namefile, intArray array)
+void create_file_controller(const char *namefile, intArray array)
 {
     int res = -1;
     while (res < 0 || res > 2)
     {
-        printf("\nDeseja criar %s.txt\n", namefile);
+        printf("\n\nDeseja criar %s.txt\n", namefile);
         printf("[1] Sim, [0] Nao\n");
         printf("-> ");
         scanf("%d", &res);

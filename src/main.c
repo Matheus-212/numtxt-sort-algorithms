@@ -2,7 +2,6 @@
 #include "filemanager.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 void clear_buffer(int c)
 {
@@ -68,7 +67,7 @@ int main()
         }
         printf("dados de saida: ");
         print_arrey(arr);
-        ger("ordenados", arr);
+        create_file_controller("ordenados", arr);
     }
     else
     {
